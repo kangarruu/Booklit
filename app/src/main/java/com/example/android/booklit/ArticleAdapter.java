@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-//Custom ArrayAdapter for displaying Article objects in list
+//Custom ArrayAdapter for displaying Article objects in a list
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
     public ArticleAdapter(@NonNull Context context, int resource, @NonNull List<Article> articles) {

@@ -42,7 +42,7 @@ public class QueryUtils {
     //Method for making an HTTP request to the server.
     //@param URL created in createUrl()
     //@return a String containing the JSON response from the queried URL
-    private String makeHttpRequest(URL url) throws IOException{
+    private static String makeHttpRequest(URL url) throws IOException{
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         String jsonResponseString = " ";
@@ -75,8 +75,8 @@ public class QueryUtils {
             if(urlConnection != null){
                 urlConnection.disconnect();
             }
-            if (inputStream != null){
-                inputStream.close();
+            if (inputStream != null){               //Closing stream can throw a JSON Exception
+                inputStream.close();                //Declare exception in method declaration
             }
         }
         return jsonResponseString;
@@ -85,7 +85,7 @@ public class QueryUtils {
     //Method for parsing the InputStream and converting it into a String
     //@param an InputStream requested in makeHttpRequest()
     //@return a String containing the content of the InputStream
-    private String readFromStream(InputStream inputStream) throws IOException {
+    private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null){
             InputStreamReader streamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
@@ -102,7 +102,7 @@ public class QueryUtils {
     //Method for parsing a String JSON response and extracting the necessary elements
     //@param the String containing JSON response returned in makeHttpRequest()
     //@return an ArrayList containing articles received from the url
-    private static ArrayList<Article> extractFromJson(String jsonString) throws JSONException{
+    private static ArrayList<Article> extractFromJson(String jsonString){
         if(TextUtils.isEmpty(jsonString)){
             return null;
         }
@@ -113,19 +113,22 @@ public class QueryUtils {
         //try parsing the response by locating the root JSON object and the JSONArray containing the results
         try{
             JSONObject baseJsonObject = new JSONObject(jsonString);
-            JSONArray resultsArray = baseJsonObject.getJSONArray("results");
+            JSONObject jsonResponse = baseJsonObject.getJSONObject("response");
+            JSONArray resultsArray = jsonResponse.getJSONArray("results");
 
             //iterate through baseJsonArray, and extract the relevant Strings
+            //Learned to differentiate between getString and optString from:
+            // https://stackoverflow.com/questions/13790726/the-difference-between-getstring-and-optstring-in-json
             for(int i = 0; i < resultsArray.length(); i++ ){
                 JSONObject currentArticle = resultsArray.getJSONObject(i);
                 String sectionName = currentArticle.getString("sectionName");
                 String webPublicationDate = currentArticle.getString("webPublicationDate");
                 String webTitle = currentArticle.getString("webTitle");
                 JSONObject fieldsObject = currentArticle.getJSONObject("fields");
-                String trailText = fieldsObject.getString("trailText");
-                String byline = fieldsObject.getString("byline");
-                String shortUrl = fieldsObject.getString("shortUrl");
-                String thumbnail = fieldsObject.getString("thumbnail");
+                String trailText = fieldsObject.optString("trailText");
+                String byline = fieldsObject.optString("byline");
+                String shortUrl = fieldsObject.optString("shortUrl");
+                String thumbnail = fieldsObject.optString("thumbnail");
 
                 //Create a new Article object and pass in the extracted variables
                 Article article = new Article(byline, webTitle, trailText,webPublicationDate,
@@ -137,12 +140,13 @@ public class QueryUtils {
             Log.e(LOG_TAG, "Error extracting JSON objects in extractFromJson(): ",e);
         }
         return articles;
+
     }
 
     //Method that combines all the helper methods to create and query the URL and return the list of Articles
     //@param the Guardian API String
     //@return a List of Article objects for the ArticleAdapter to display
-    public List<Article> fetchArticles(String queryString) throws JSONException {
+    public static List<Article> fetchArticles(String queryString) {
         //Create a URL object from the input String
         URL guardianUrl = createUrl(queryString);
         //Perform an HTTP request and receive a JSON response
