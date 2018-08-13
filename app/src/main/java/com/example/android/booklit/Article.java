@@ -1,5 +1,7 @@
 package com.example.android.booklit;
 
+import android.graphics.Bitmap;
+
 public class Article {
 
     private String mAuthor;         //byline (Name of the article's Author)
@@ -8,12 +10,12 @@ public class Article {
     private String mPublishDate;     //webPublicationDate (Published date)
     private String mSection;        //sectionName (Website section name)
     private String mUrl;            //shortUrl (shortened article URL)
-    private String mThumbnail;      //thumbnail (Image associated with the article)
+    private Bitmap mThumbnail;      //thumbnail (Image associated with the article)
 
     // Create an Article constructor
 
     public Article(String author, String title, String snippet,
-                   String publishDate, String section, String url, String thumbnail){
+                   String publishDate, String section, String url, Bitmap thumbnail){
         mAuthor = author;
         mTitle = title;
         mSnippet = snippet;
@@ -43,7 +45,7 @@ public class Article {
     public String getArticleUrl() {
         return mUrl;
     }
-    public String getArticleThumbnail() {
+    public Bitmap getArticleThumbnail() {
         return mThumbnail;
     }
 }

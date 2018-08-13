@@ -2,10 +2,16 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Theme customization inspiration from: https://medium.com/@joannekao/android-working-with-themes-and-styles-18cde717f4d -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/lightGray</item>
+        <item name="android:colorForeground">@color/goblin</item>
+        <item name="android:textColorLink">@color/goblin</item>
+        <item name="android:textColorLinkInverse">@color/winterBlue</item>
     </style>
 
 </resources>

@@ -2,6 +2,8 @@ package com.example.android.booklit;
 
 //Helper methods related to requesting and receiving article data from the Guardian API
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -55,8 +57,8 @@ public class QueryUtils {
         //try opening an HttpURLConnection.
         try{
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
@@ -130,9 +132,23 @@ public class QueryUtils {
                 String shortUrl = fieldsObject.optString("shortUrl");
                 String thumbnail = fieldsObject.optString("thumbnail");
 
+                //Convert the thumbnail URL to a bitmap
+                //Learned how to decode a bitmap from a url from here: https://stackoverflow.com/questions/11831188/how-to-get-bitmap-from-a-url-in-android
+                Bitmap image = null;
+             try {
+                 if (thumbnail != null) {
+                     URL imageUrl = new URL(thumbnail);
+                     image = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
+                 }
+             } catch (MalformedURLException e) {
+                 Log.e(LOG_TAG, "URL error when converting image URL to Bitmap", e);
+             } catch (IOException e) {
+                 Log.e(LOG_TAG, "Error when opening connection when converting URL to Bitmap", e);
+             }
+
                 //Create a new Article object and pass in the extracted variables
                 Article article = new Article(byline, webTitle, trailText,webPublicationDate,
-                        sectionName, shortUrl, thumbnail );
+                        sectionName, shortUrl, image );
                 articles.add(article);
             }
 

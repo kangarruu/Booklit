@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--Color inspiration from https://medium.com/@joannekao/android-working-with-themes-and-styles-18cde717f4d @ palette generator-->
+    <color name="colorPrimary">#9A7F6F</color>
+    <color name="colorPrimaryDark">#A78879</color>
+    <color name="colorAccent">#F97242</color>
+    <color name="onyx_87">#DE333C37</color>
+    <color name="lightGray">#F1F1F1</color>
+    <color name="goblin">#33524C</color>
+    <color name="gray_38">#8A9e9e9e</color>
+    <color name="winterBlue">#9BE7FF</color>
 </resources>

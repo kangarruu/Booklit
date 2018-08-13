@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Learned about preferred toolbar heights here:
+    https://blog.iamsuleiman.com/parallax-scrolling-tabs-design-support-library/-->
+    <dimen name="appbar_header_height">208dp</dimen>
+    <dimen name="list_item_height">200dp</dimen>
+    <dimen name="header_content_margin_start">24dp</dimen>
+</resources>
