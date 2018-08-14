@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     //String url to query the Guardian site for recent articles about books
     private static final String GUARDIAN_RQUEST_URL =
-            "https://content.guardianapis.com/search?section=childrens-books-site|books&format=json&show-fields=all&api-key=c893b188-9d88-42b1-8273-c1429007a39d";
+            "https://content.guardianapis.com/search?section=childrens-books-site|books&format=json&show-fields=all&api-key=";
 
     //Static ID for the ArticleLoader @param
     private static final int LOADER_ID = 1;
