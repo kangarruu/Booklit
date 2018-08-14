@@ -5,4 +5,16 @@
     <dimen name="appbar_header_height">208dp</dimen>
     <dimen name="list_item_height">200dp</dimen>
     <dimen name="header_content_margin_start">24dp</dimen>
+    <dimen name="scrim_height">160dp</dimen>
+    <dimen name="divider_height">0dp</dimen>
+    <dimen name="cardview_margin_bottom">2dp</dimen>
+    <dimen name="cardview_margin_left">4dp</dimen>
+    <dimen name="cardview_margin_right">4dp</dimen>
+    <dimen name="cardview_margin_top">4dp</dimen>
+    <dimen name="cardview_corner_radius">4dp</dimen>
+    <dimen name="cardview_elevation">3dp</dimen>
+    <dimen name="match_constraint">0dp</dimen>
+    <dimen name="thumnail_height">206dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
 </resources>
