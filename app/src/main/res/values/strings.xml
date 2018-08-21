@@ -3,6 +3,50 @@
     <string name="connectivity_msg">No Internet Connection Detected.  \nCheck Your Internet Settings.</string>
     <string name="empty_msg">Nothing to see here, folks. \nTry again later.</string>
     <string name="settings_menu_item">Settings</string>
-    <string name="settings_title">Article Settings</string>
+    <string name="settings_title">Settings</string>
+
+    <!--API query params-->
+    <string name="format_label">format</string>
+    <string name="format_value">json</string>
+    <string name="show_fields_label">show-fields</string>
+    <string name="show_fields_value">all</string>
+    <string name="page_size_label">page-size</string>
+    <string name="page_size_value">30</string>
+
+
+    <!--Strings for Filter By Section Preference-->
+    <string name="section_preference_label">Filter By Section</string>
+    <string name="section_preference_key" translatable="false">section_pref</string>
+    <string name="section_preference_default" translatable="false">childrens-books-site|books</string>
+
+    <!--Both-->
+    <string name="section_pref_both_label">Both</string>
+    <string name="section_pref_both_value" translatable="false">childrens-books-site|books</string>
+
+    <!--Books-->
+    <string name="section_pref_books_label">Books</string>
+    <string name="section_pref_books_value" translatable="false">books</string>
+
+    <!--Children's books-->
+    <string name="section_pref_children_books_label">Children\'s Books</string>
+    <string name="section_pref_children_books_value" translatable="false">childrens-books-site</string>
+
+   <!--Strings for Order-by Preference-->
+    <string name="order_by_label">Order By</string>
+    <string name="order_by_key" translatable="false">order_by</string>
+    <string name="order_by_default" translatable="false">newest</string>
+
+    <!--Order by Newest-->
+    <string name="order_by_newest_label">Newest</string>
+    <string name="order_by_newest_value" translatable="false">newest</string>
+
+    <!--Order by Oldest -->
+    <string name="order_by_oldest_label">Oldest</string>
+    <string name="order_by_oldest_value" translatable="false">oldest</string>
+
+    <!--Order by Relevance-->
+    <string name="order_by_relevance_label">Relevance</string>
+    <string name="order_by_relevance_value" translatable="false">relevance</string>
+
 
 </resources>

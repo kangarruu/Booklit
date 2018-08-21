@@ -78,8 +78,8 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
              // Display the reformatted String in date_view
              String articleDate = currentArticle.getArticleDate();
              SimpleDateFormat dateFormatter = new SimpleDateFormat("LLL dd, yyyy");
-             String dateToDisplay = dateFormatter.format(new Date());
-             viewHolder.date_view.setText(dateToDisplay);
+             articleDate = dateFormatter.format(new Date());
+             viewHolder.date_view.setText(articleDate);
 
              //Get the section for the article in the current position. Display it in section_view
              String articleSection = currentArticle.getArticleSection();

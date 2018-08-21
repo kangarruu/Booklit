@@ -4,15 +4,20 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,7 +43,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     //String url to query the Guardian site for recent articles about books
     private static final String GUARDIAN_RQUEST_URL =
-            "https://content.guardianapis.com/search?section=childrens-books-site|books&format=json&show-fields=all&api-key=";
+            "https://content.guardianapis.com/search?";
+
+    private static final String MY_API = BuildConfig.ApiKey;
 
     //Static ID for the ArticleLoader @param
     private static final int LOADER_ID = 1;
@@ -106,7 +113,47 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
-        return new ArticleLoader(MainActivity.this, GUARDIAN_RQUEST_URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //Retrieve the section preference String value and its default value:
+        String section = sharedPrefs.getString(
+                getString(R.string.section_preference_key),
+                getString(R.string.section_preference_default));
+
+        //Retrieve the order by preference String value and its default value:
+        String order_by = sharedPrefs.getString(
+                getString(R.string.order_by_key),
+                getString(R.string.order_by_default));
+
+        //Parse the URI string that forms the base for the Guardian query
+        Uri baseUri = Uri.parse(GUARDIAN_RQUEST_URL);
+
+        //Build up the baseUri with the preference options using a uriBuilder
+        Uri.Builder builder = baseUri.buildUpon();
+
+        //Append the query parameters to make a legitimate query Url using the user's preferences
+        //But first check if they are null
+
+        if (section != null) {
+        builder.appendQueryParameter("section", section);
+        }
+        if (order_by!= null) {
+        builder.appendQueryParameter("order_by", order_by);
+        }
+
+        //Add any additional necessary query parameters
+        builder.appendQueryParameter(getString(R.string.format_label), getString(R.string.format_value));
+        builder.appendQueryParameter(getString(R.string.show_fields_label), getString(R.string.show_fields_value));
+        builder.appendQueryParameter(getString(R.string.page_size_label), getString(R.string.page_size_value));
+
+
+        //Add Api key or query will not work
+        builder.appendQueryParameter("api-key", MY_API);
+
+        Log.d(LOG_TAG, "checking for final url string:" + builder.toString());
+
+        return new ArticleLoader(MainActivity.this, builder.toString());
     }
 
     @Override
@@ -132,5 +179,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //Clear the ArticleAdapter of any existing lists
         articleAdapter.clear();
 
+    }
+
+    //Inflate the menu created in main.xml
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    //Get the ID of the options item that was selected and create an Intent to open the SettingsActivity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
