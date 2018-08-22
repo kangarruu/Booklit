@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         builder.appendQueryParameter("section", section);
         }
         if (order_by!= null) {
-        builder.appendQueryParameter("order_by", order_by);
+        builder.appendQueryParameter("order-by", order_by);
         }
 
         //Add any additional necessary query parameters

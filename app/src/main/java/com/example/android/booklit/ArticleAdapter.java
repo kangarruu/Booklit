@@ -74,12 +74,17 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
              String articleAuthor = currentArticle.getArticleAuthor();
              viewHolder.author_view.setText(articleAuthor);
 
-             //Get the date the article was published. Reformat that String to SimpleDateFormat with the pattern LLL, dd, yyy.
+             //Get the date the article was published. Split the date off the webPublicationDate String. Reformat that String to SimpleDateFormat with the pattern LLL, dd, yyy.
              // Display the reformatted String in date_view
-             String articleDate = currentArticle.getArticleDate();
-             SimpleDateFormat dateFormatter = new SimpleDateFormat("LLL dd, yyyy");
-             articleDate = dateFormatter.format(new Date());
-             viewHolder.date_view.setText(articleDate);
+             String apiArticleDate = currentArticle.getArticleDate();
+             if(apiArticleDate.contains("T")){
+                 String[] splitDate = apiArticleDate.split("T");
+                 //Keep the first index
+                 String dateToDisplay = splitDate[0];
+                 SimpleDateFormat dateFormatter = new SimpleDateFormat("LLL dd, yyyy");
+//             dateToDisplay = dateFormatter.format(new Date());
+                 viewHolder.date_view.setText(dateToDisplay);
+             }
 
              //Get the section for the article in the current position. Display it in section_view
              String articleSection = currentArticle.getArticleSection();
@@ -87,7 +92,12 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
              //Get the thumbnail url for the article in the current position
              Bitmap articleThumbnailUrl = currentArticle.getArticleThumbnail();
-             viewHolder.thumbnail.setImageBitmap(articleThumbnailUrl);
+             //If no image exists, hide he thumbnail View
+             if (articleThumbnailUrl != null){
+                 viewHolder.thumbnail.setImageBitmap(articleThumbnailUrl);
+             } else {
+                 viewHolder.thumbnail.setVisibility(View.GONE);
+             }
 
          }
 

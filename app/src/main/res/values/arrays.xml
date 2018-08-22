@@ -2,9 +2,9 @@
 <resources>
     <!--Array for Filter By Section Preference-->
     <string-array name="settings_filter_section_labels">
-        <item>@string/section_pref_both_label</item>
         <item>@string/section_pref_books_label</item>
         <item>@string/section_pref_children_books_label</item>
+        <item>@string/section_pref_both_label</item>
     </string-array>
 
     <string-array name="settings_filter_section_values">
@@ -25,7 +25,5 @@
         <item>@string/order_by_oldest_value</item>
         <item>@string/order_by_relevance_value</item>
     </string-array>
-
-
 
 </resources>

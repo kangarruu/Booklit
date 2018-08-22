@@ -48,5 +48,4 @@
     <string name="order_by_relevance_label">Relevance</string>
     <string name="order_by_relevance_value" translatable="false">relevance</string>
 
-
 </resources>

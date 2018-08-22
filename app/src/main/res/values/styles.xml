@@ -16,8 +16,8 @@
 
     <style name="Pref" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--Preferences toolbar customization learned from: https://stackoverflow.com/questions/30139548/how-to-add-toolbar-in-preferenceactivity -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
