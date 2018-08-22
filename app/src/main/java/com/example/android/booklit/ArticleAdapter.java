@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -78,11 +79,20 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
              // Display the reformatted String in date_view
              String apiArticleDate = currentArticle.getArticleDate();
              if(apiArticleDate.contains("T")){
-                 String[] splitDate = apiArticleDate.split("T");
+                 String[] splitDate = apiArticleDate.split("(?=T)");
                  //Keep the first index
-                 String dateToDisplay = splitDate[0];
-                 SimpleDateFormat dateFormatter = new SimpleDateFormat("LLL dd, yyyy");
-//             dateToDisplay = dateFormatter.format(new Date());
+                 String justDate = splitDate[0];
+                 SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+                 Date convertedDate = null;
+                 try {
+                     convertedDate= dateFormatter.parse(justDate);
+                 } catch (ParseException e) {
+                     Log.e(LOG_TAG, "Error parsing date String into Date", e);
+                 }
+
+                 SimpleDateFormat finalFormatter = new SimpleDateFormat("LLL dd, yyyy");
+                 String dateToDisplay = finalFormatter.format(convertedDate);
+
                  viewHolder.date_view.setText(dateToDisplay);
              }
 
