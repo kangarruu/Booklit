@@ -147,11 +147,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         builder.appendQueryParameter(getString(R.string.show_fields_label), getString(R.string.show_fields_value));
         builder.appendQueryParameter(getString(R.string.page_size_label), getString(R.string.page_size_value));
 
-
-        //Add Api key or query will not work
+       //Add Api key or query will not work
         builder.appendQueryParameter("api-key", MY_API);
-
-        Log.d(LOG_TAG, "checking for final url string:" + builder.toString());
 
         return new ArticleLoader(MainActivity.this, builder.toString());
     }
